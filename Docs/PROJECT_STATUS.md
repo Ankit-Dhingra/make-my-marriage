@@ -10,7 +10,7 @@
 
 | Phase | Milestone | Status | Completion % |
 | :--- | :--- | :---: | :---: |
-| **Phase 1** | Foundation, Auth (JWT), Wedding Setup & Dashboard Shell | 🔄 In Progress | 10% |
+| **Phase 1** | Foundation, Next.js Scaffold & Codebase Architecture (Auth, Wedding Setup and Dashboard remain) | 🔄 In Progress | 18% |
 | **Phase 2** | Events & Task Management | ⏳ Pending | 0% |
 | **Phase 3** | Guest List, Invitations & Zero-Friction RSVP | ⏳ Pending | 0% |
 | **Phase 4** | Expense Tracker (Paise) & Vendor Management / Discovery | ⏳ Pending | 0% |
@@ -25,7 +25,8 @@
 ### Phase 1: Foundation & Project Scaffolding
 - [x] Project Documentation review and JWT authentication alignment (PRD, System Design, DB Design, API Design)
 - [x] Architectural alignment (JWT-based HttpOnly cookie auth; no sessions collection)
-- [ ] Next.js (App Router) + TypeScript + Tailwind CSS initial setup
+- [x] Codebase architecture for UI, REST handlers, feature modules, and server infrastructure
+- [x] Next.js (App Router) + TypeScript + Tailwind CSS initial setup
 - [ ] Database connection module (MongoDB connection pooling & Mongoose setup)
 - [ ] Zod validation utilities & standardized API error handling framework
 - [ ] User & Wedding Membership Mongoose models
@@ -97,3 +98,16 @@
   - Logout clears the cookie; JWTs are not individually revocable in V1 and expire normally. Password reset tokens remain hashed database records.
 - **Files Modified:** `Docs/PRD.md`, `Docs/API_DESIGN.md`, `Docs/SYSTEM_DESIGN.md`, `Docs/DATABASE_DESIGN.md`, `Docs/PROJECT_STATUS.md`.
 - **Next Steps:** Implement the agreed JWT utilities and auth flow during Phase 1; decide the JWT expiry duration when configuring authentication.
+
+### [2026-10-20] - Phase 1 Next.js Foundation Scaffold
+- **Milestone:** Created the initial application scaffold; Phase 1 is estimated at 18% and remains in progress.
+- **Files Created:** `package.json`, `package-lock.json`, `next.config.ts`, `tsconfig.json`, `eslint.config.mjs`, `.gitignore`, `next-env.d.ts`, `README.md`, `src/app/*`, and `public/*`. **Modified:** `src/app/layout.tsx` metadata branded to MMM.
+- **Architectural Decisions:** Used the Next.js App Router inside `src/`, TypeScript, Tailwind CSS v4, ESLint, and the `@/*` import alias. Kept the repository root as the single application; generator output was moved from a temporary lowercase directory and that directory was removed. Grouped the public starter route at `src/app/(marketing)/page.tsx`. Documented API route adapters, feature modules, shared UI, and server-only infrastructure in `Docs/CODEBASE_ARCHITECTURE.md`. The starter page remains a placeholder until dashboard UX work begins.
+- **Environment Note:** The installed toolchain is Next.js 16.4.2 with React 19.3.0. npm reported an engine warning because the workspace Node version is 20.15.1 while one transitive ESLint dependency requires Node 20.19.0 or newer; dependency installation completed.
+- **Next Steps:** Add the MongoDB/Mongoose connection and shared Zod/API error foundations, then User and Wedding Membership models and the JWT auth flow.
+
+### [2026-10-20] - Source Folder Architecture
+- **Milestone:** Clarified and organized the single-repository UI/API boundaries.
+- **Files Created:** `Docs/CODEBASE_ARCHITECTURE.md`, `src/app/api/README.md`, `src/components/README.md`, `src/features/README.md`, `src/lib/README.md`, and `src/server/README.md`. **Moved:** `src/app/page.tsx` to `src/app/(marketing)/page.tsx`.
+- **Architectural Decisions:** Next.js `app/api/**/route.ts` files are thin HTTP adapters; feature services own business rules and repositories own wedding-scoped persistence. UI pages/components are separate from server-only Mongoose/provider modules. Route groups organize UI without changing URLs. No nested project root or placeholder domain implementations were added.
+- **Next Steps:** Implement the database connection and shared API validation/error handling using these boundaries.

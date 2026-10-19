@@ -10,7 +10,7 @@
 
 | Phase | Milestone | Status | Completion % |
 | :--- | :--- | :---: | :---: |
-| **Phase 1** | Foundation, Next.js Scaffold & Codebase Architecture (Auth, Wedding Setup and Dashboard remain) | 🔄 In Progress | 18% |
+| **Phase 1** | Foundation, Next.js Scaffold & Codebase Architecture (Auth, Wedding Setup and Dashboard remain) | 🔄 In Progress | 23% |
 | **Phase 2** | Events & Task Management | ⏳ Pending | 0% |
 | **Phase 3** | Guest List, Invitations & Zero-Friction RSVP | ⏳ Pending | 0% |
 | **Phase 4** | Expense Tracker (Paise) & Vendor Management / Discovery | ⏳ Pending | 0% |
@@ -27,6 +27,8 @@
 - [x] Architectural alignment (JWT-based HttpOnly cookie auth; no sessions collection)
 - [x] Codebase architecture for UI, REST handlers, feature modules, and server infrastructure
 - [x] Next.js (App Router) + TypeScript + Tailwind CSS initial setup
+- [x] MMM design system and first public marketing homepage draft prepared for Stitch review
+- [x] Public marketing homepage design approved and coded
 - [ ] Database connection module (MongoDB connection pooling & Mongoose setup)
 - [ ] Zod validation utilities & standardized API error handling framework
 - [ ] User & Wedding Membership Mongoose models
@@ -111,3 +113,35 @@
 - **Files Created:** `Docs/CODEBASE_ARCHITECTURE.md`, `src/app/api/README.md`, `src/components/README.md`, `src/features/README.md`, `src/lib/README.md`, and `src/server/README.md`. **Moved:** `src/app/page.tsx` to `src/app/(marketing)/page.tsx`.
 - **Architectural Decisions:** Next.js `app/api/**/route.ts` files are thin HTTP adapters; feature services own business rules and repositories own wedding-scoped persistence. UI pages/components are separate from server-only Mongoose/provider modules. Route groups organize UI without changing URLs. No nested project root or placeholder domain implementations were added.
 - **Next Steps:** Implement the database connection and shared API validation/error handling using these boundaries.
+
+### [2026-10-20] - Public Marketing Homepage Design Draft
+- **Milestone:** Prepared mobile and desktop public product homepage drafts in the existing Stitch project for user review. No application page implementation was started; Phase 1 remains at 18% pending review and approval.
+- **Files Created:** `DESIGN.md` — warm, editorial design system and anti-pattern rules.
+- **External Artifact:** Added “MMM — Public Home” (mobile) and “MMM — Public Home Desktop” to the existing Stitch project “Make My Marriage”.
+- **Design Decisions:** The pages introduce MMM to Indian couples and families, distinct from the organiser dashboard and couple-specific wedding websites. They use a warm paper/umber/terracotta palette, editorial serif display typography with Geist product copy, an asymmetric hero, restrained wedding photography, and concise V1 product capabilities. The generated screen is a review draft and includes extra content/claims that need user review before implementation.
+- **Next Steps:** Review both Stitch screens with the user, revise the visual direction and content as requested, and only then implement the approved design in `src/app/(marketing)/page.tsx`.
+
+### [2026-10-20] - Make My Marriage Wordmark & Responsive Design Direction
+- **Milestone:** Updated the Stitch header treatment to show a standalone mark with the full “Make My Marriage” product name and no “MMM” shorthand in the header. Confirmed the user's preference for one responsive web design per page, including mobile behavior, instead of separately generating mobile-only designs. Phase 1 remains at 18%; app UI implementation is still pending approval.
+- **Files Modified:** `DESIGN.md`, `Docs/PROJECT_STATUS.md`.
+- **External Artifact:** Revised the selected desktop header and mobile-width homepage header in the existing Stitch project “Make My Marriage”.
+- **Design Decisions:** Use “Make My Marriage” as the customer-facing brand name. Keep the standalone logo mark to its left; allow the name to stack below only at narrow widths. Future design prompts should describe responsive behavior in the same page deliverable rather than generate a separate mobile screen.
+- **Next Steps:** Review the updated wordmarks in Stitch, refine any remaining customer-facing shorthand if desired, then implement the approved responsive page in `src/app/(marketing)/page.tsx`.
+
+### [2026-10-20] - Public Marketing Homepage Implementation
+- **Milestone:** Implemented the approved responsive marketing homepage. Phase 1 progress is now estimated at 23%; authentication, wedding setup, and the organiser dashboard remain pending.
+- **Files Created:** `public/make-my-marriage-hero.png` (editorial wedding photograph). **Files Modified:** `src/app/(marketing)/page.tsx`, `src/app/globals.css`, `src/app/layout.tsx`, `Docs/PROJECT_STATUS.md`.
+- **Design and Architectural Decisions:** Replaced the Next.js starter screen with a server-rendered public homepage in the existing marketing route. The responsive page uses one layout with a native compact mobile navigation, a standalone mark and the full Make My Marriage name, shared-planning capabilities, a sample event and RSVP view, and a calm closing section. Added Instrument Serif alongside Geist for the approved editorial typography and used the generated photograph as a local Next Image asset.
+- **Next Steps:** Implement signup/login routes and authentication later in Phase 1; continue with the MongoDB connection and shared validation/error handling foundations.
+
+### [2026-10-20] - Homepage Runtime Verification
+- **Milestone:** Started the Next.js development server and verified the public homepage renders successfully at the local preview URL. Phase 1 remains estimated at 23%.
+- **Files Modified:** `src/app/(marketing)/page.tsx`, `Docs/PROJECT_STATUS.md`.
+- **Design and Architectural Decisions:** Replaced a dynamic footer year expression that triggered a Next.js prerender warning with the static current year. Verified the route responds successfully and that the full homepage content is present in the rendered page.
+- **Next Steps:** Review the running responsive page against the approved Stitch design and note any visual adjustments before proceeding to additional pages.
+
+### [2026-10-20] - Homepage V1 Feature Scope Alignment
+- **Milestone:** Expanded the public homepage to communicate all V1 product areas described in the PRD, while retaining the approved responsive visual direction. Phase 1 remains estimated at 23%.
+- **Files Modified:** `src/app/(marketing)/page.tsx`, `src/app/globals.css`, `Docs/PROJECT_STATUS.md`.
+- **Product and Design Decisions:** Added a four-part V1 overview for shared wedding setup/events/tasks; guest lists, digital invitations and account-free RSVPs; vendor records/discovery and expense tracking; and the hosted wedding website, themes, YouTube livestream, private photo gallery, guest uploads and QR sharing. Clarified that expenses track spending rather than budgets, consistent with the PRD non-goals. Updated navigation labels and made the overview adapt from a four-column summary to stacked mobile content.
+- **Next Steps:** Review the expanded live homepage; then continue with the Phase 1 application foundation and dashboard shell.
